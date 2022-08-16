@@ -45,7 +45,7 @@
           <!-- Details -->
           <div>
             <h2 class="sr-only">Product information</h2>
-            <p class="text-3xl text-gray-900">Rs.{{ product.price }}</p>
+            <p class="text-3xl text-gray-900">Rs.{{ product.sell_price }}</p>
           </div>
 
           <div class="mt-10">

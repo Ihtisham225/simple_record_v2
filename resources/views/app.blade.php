@@ -7,6 +7,8 @@
 
         <title>Secure POS</title>
 
+        <link rel="shortcut icon" href="{{ asset('logo/logo.svg') }}" />
+
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
