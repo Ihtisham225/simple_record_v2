@@ -26,7 +26,6 @@ class CustomerRequest extends FormRequest
         return [
             'c_name' => 'required',
             'phone' => 'required',
-            'address' => 'required',
         ];
     }
 
@@ -35,7 +34,6 @@ class CustomerRequest extends FormRequest
         return [
             'c_name' => 'Customer Name',
             'phone' => 'Phone Number',
-            'address' => 'Address',
         ];
     }
 }

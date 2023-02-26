@@ -25,11 +25,9 @@ class ProductRequest extends FormRequest
     {
         return [
             'p_name' => 'required',
-            'brand_id' => 'required',
             'p_model' => 'required',
             'price' => 'required',
             'sell_price' => 'required',
-            'seller_id' => 'required',
         ];
     }
 
@@ -37,11 +35,9 @@ class ProductRequest extends FormRequest
     {
         return [
             'p_name' => 'Product Name',
-            'brand_id' => 'Brand',
             'p_model' => 'Model',
             'Price' => 'Price',
             'sell_price' => 'Selling Price',
-            'seller_id' => 'Seller Name',
         ];
     }
 }

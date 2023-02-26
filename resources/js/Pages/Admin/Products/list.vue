@@ -81,9 +81,13 @@
                             <div class="text-sm text-gray-900">{{ r.model }}</div>
                             <!-- <div class="text-sm text-gray-500">{{ person.department }}</div> -->
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-6 py-4 whitespace-nowrap" v-if="r.seller_id != null" >
                             <div class="text-sm text-gray-900"><a :href="'seller-detail/'+r.seller.id"> {{ r.seller.name }} </a></div>
                             <!-- <div class="text-sm text-gray-500">{{ person.department }}</div> -->
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap" v-if="r.seller_name != null">
+                            <div class="text-sm text-gray-900">{{ r.seller_name }}</div>
+                            <div class="text-sm text-gray-500">{{ r.seller_phone }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">Rs. {{ r.price }} </div>
@@ -101,12 +105,16 @@
                             <div class="text-sm text-gray-900">Rs. {{ r.sold_at }} </div>
                             <!-- <div class="text-sm text-gray-500">{{ person.department }}</div> -->
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-6 py-4 whitespace-nowrap" v-if="r.customer_id != null" >
                             <div class="text-sm text-gray-900"><a :href="'/customer-detail/'+(r.customer ? r.customer.id : '#')"> {{ (r.customer ? r.customer.name : 'none') }} </a></div>
                             <!-- <div class="text-sm text-gray-500">{{ person.department }}</div> -->
                             </td>
+                            <td class="px-6 py-4 whitespace-nowrap" v-else-if="r.customer_name != null">
+                            <div class="text-sm text-gray-900">{{ r.customer_name != null ? r.customer_name : 'none' }}</div>
+                            <div class="text-sm text-gray-500">{{ r.customer_phone }}</div>
+                            </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900"> {{ r.sold_at != 0 && r.customer.id != 0 ? moment(r.updated_at).format('DD-MMM-YYYY') : 'Not Sold Yet' }} </div>
+                            <div class="text-sm text-gray-900"> {{ r.sold_at != 0 ? moment(r.updated_at).format('DD-MMM-YYYY') : 'Not Sold Yet' }} </div>
                             <!-- <div class="text-sm text-gray-500">{{ person.department }}</div> -->
                             </td>
                             
@@ -133,7 +141,7 @@
                             </a>
 
                             <!-- return product -->
-                            <button v-if="r.sold_at != 0 && r.customer.id != 0" @click.prevent="returnProduct(`${r.id}`)" title="return" class="text-indigo-600 hover:text-indigo-900">
+                            <button v-if="r.sold_at != 0 " @click.prevent="returnProduct(`${r.id}`)" title="return" class="text-indigo-600 hover:text-indigo-900">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M5 2a2 2 0 00-2 2v14l3.5-2 3.5 2 3.5-2 3.5 2V4a2 2 0 00-2-2H5zm4.707 3.707a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L8.414 9H10a3 3 0 013 3v1a1 1 0 102 0v-1a5 5 0 00-5-5H8.414l1.293-1.293z" clip-rule="evenodd" />
                             </svg>

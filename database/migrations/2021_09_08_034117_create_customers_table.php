@@ -17,8 +17,8 @@ class CreateCustomersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone');
-            $table->string('cnic');
-            $table->string('address');
+            $table->string('cnic')->nullable();
+            $table->string('address')->nullable();
             $table->unsignedBigInteger('store_id');
             $table->boolean('status');
             $table->softDeletesTz();

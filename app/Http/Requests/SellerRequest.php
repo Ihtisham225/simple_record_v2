@@ -26,8 +26,6 @@ class SellerRequest extends FormRequest
         return [
             's_name' => 'required',
             'phone' => 'required',
-            'shop' => 'required',
-            'address' => 'required',
         ];
     }
 
@@ -36,8 +34,6 @@ class SellerRequest extends FormRequest
         return [
             's_name' => 'Seller Name',
             'phone' => 'Phone Number',
-            'shop' => 'Shop Name',
-            'address' => 'Address',
         ];
     }
 }

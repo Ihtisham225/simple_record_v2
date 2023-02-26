@@ -27,7 +27,7 @@
 
                 <div class="col-span-6 sm:col-span-3">
                   <label for="brand" class="block text-sm font-medium text-gray-700">Product brand</label>
-                  <input type="text" readonly :value="product.brand.name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                  <input type="text" readonly :value="product.brand_name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                 </div>
 
                 <div class="col-span-6 sm:col-span-3">
@@ -53,6 +53,34 @@
 
 
                 <div class="col-span-6 sm:col-span-3">
+                  <label for="toogleA" class="flex items-center cursor-pointer"> 
+                    <!-- toggle -->
+                    <div class="relative">
+                      <!-- input -->
+                      <input v-on:click="isHidden = !isHidden" id="toogleA" type="checkbox" class="sr-only" />
+                      <!-- line -->
+                      <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                      <!-- dot -->
+                      <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                    </div>
+                    <!-- label -->
+                    <div class="ml-3 text-gray-700 font-medium">WalkIn Customer</div>
+                  </label>
+                </div>
+
+                <div v-if="isHidden" class="col-span-6 sm:col-span-3">
+                  <label for="p_name" class="block text-sm font-medium text-gray-700">Customer Name</label>
+                  <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" v-if="errors.c_name">{{ errors.c_name }}</div>
+                  <input type="text" autocomplete="off" v-model="form.c_name" id="c_name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                </div>
+
+                <div v-if="isHidden" class="col-span-6 sm:col-span-3">
+                  <label for="p_name" class="block text-sm font-medium text-gray-700">Customer Phone#</label>
+                  <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" v-if="errors.c_phone">{{ errors.c_phone }}</div>
+                  <input type="text" autocomplete="off" v-model="form.c_phone" id="c_phone" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                </div>
+
+                <div v-if="!isHidden" class="col-span-6 sm:col-span-3">
                   <label for="customer_id" class="block text-sm font-medium text-gray-700">Product Sold to</label>
                   <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" v-if="errors.customer_id">{{ errors.customer_id }}</div>
                   <select id="customer_id" v-model="form.customer_id"  autocomplete="seller_id" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -117,9 +145,12 @@
 
     data() {
       return { 
+        isHidden: false,
         form: this.$inertia.form({
             p_id: this.product.id,
             customer_id: this.product.customer_id,
+            c_name: null,
+            c_phone: null,
             sold_quantity: this.product.sold_quantity,
             sold_at: this.product.sold_at,
         }),
@@ -137,3 +168,17 @@
     },
   }
 </script>
+
+<style scoped>
+/* Toggle A */
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #4f46e4;
+}
+
+/* Toggle B */
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #4f46e4;
+}
+</style>

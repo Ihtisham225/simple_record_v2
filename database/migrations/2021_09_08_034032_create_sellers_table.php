@@ -17,8 +17,8 @@ class CreateSellersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone');
-            $table->string('shop');
-            $table->string('address');
+            $table->string('shop')->nullable();
+            $table->string('address')->nullable();
             $table->unsignedBigInteger('store_id');
             $table->boolean('status');
             $table->softDeletesTz();

@@ -30,6 +30,7 @@ class ProductController extends Controller
         return Inertia::render('Admin/Products/list', 
             ['products' => Product::where('store_id', session('store_id'))
                 ->with('brand', 'seller', 'customer')
+                ->latest()
                 ->paginate(10), 'totalbudget' => array_sum(Product::where('store_id', session('store_id'))->get()
                 ->pluck('price')->toArray()) ?? 0, 
                 'totalproducts' => count(Product::where('store_id', session('store_id'))->get())
@@ -66,14 +67,43 @@ class ProductController extends Controller
             }
         }
         else
-            $images = "['default.png']";
+            $images = ["default.png"];
 
         
         $product = new Product();
         $product->name = $request->p_name;
-        $product->brand_id = $request->brand_id;
+        //adding brand to database for future use of the shop
+        $product->brand_name = $request->brand_name;
+        $brand = Brand::updateOrCreate
+        ([
+            'name' => $request->brand_name, 
+            'store_id' => session('store_id'),
+            'status' => '1'
+        ]);
+        $brand->save();
+
         $product->model = $request->p_model;
-        $product->seller_id = $request->seller_id;
+        if($request->seller_id != '')
+        {
+            $product->seller_id = $request->seller_id;
+        }
+        else
+        {
+            $product->seller_name = $request->s_name;
+            $product->seller_phone = $request->s_phone;
+
+            //saving seller to database for future use
+            $seller = Seller::updateOrCreate(
+                [
+                    'name' => $request->s_name,
+                    'phone' => $request->s_phone,
+                    'store_id' => session('store_id'),
+                    'status' => '1'
+                ]
+            );
+            $seller->save();
+        }
+        $product->customer_name = 'none';
         $product->sold_at = 0;
         $product->price = $request->price;
         $product->sell_price = $request->sell_price;
@@ -181,7 +211,7 @@ class ProductController extends Controller
     //this function show all the sold products
     public function sold_products()
     {
-        return Inertia::render('Admin/Products/sold_products', ['products' => SoldProduct::where('store_id', session('store_id'))->paginate(10)]);
+        return Inertia::render('Admin/Products/sold_products', ['products' => SoldProduct::where('store_id', session('store_id'))->latest()->paginate(10)]);
     }
 
 
@@ -191,7 +221,25 @@ class ProductController extends Controller
 
         $product = Product::find($request->p_id);
         $product->sold_at = ($request->sold_at == '' ? 0 : $request->sold_at);
-        $product->customer_id = $request->customer_id;
+
+        if($product->customer_id != '')
+            $product->customer_id = $request->customer_id;
+        else
+        {
+            $product->customer_name = $request->c_name;
+            $product->customer_phone = $request->c_phone;
+
+            //saving customer to database for future use
+            $customer = Customer::updateOrCreate(
+                [
+                    'name' => $request->c_name,
+                    'phone' => $request->c_phone,
+                    'store_id' => session('store_id'),
+                    'status' => '1'
+                ]
+            );
+            $customer->save();
+        }
         $product->status = 0;
 
 
@@ -212,12 +260,15 @@ class ProductController extends Controller
         //storing the record in sold produts table
         $soldProduct = new SoldProduct;
         $soldProduct->name = $product->name;
-        $soldProduct->brand = $product->brand->name;
+        $soldProduct->brand = $product->brand_name;
         $soldProduct->model = $product->model;
         $soldProduct->description = $product->description;
         $soldProduct->store_id = session('store_id');
         // $soldProduct->product_id = $request->p_id;
-        $soldProduct->customer = $product->customer->name." | ".$product->customer->phone." | ".$product->customer->address." | ".$product->customer->cnic;
+        if($request->customer_id != '')
+            $soldProduct->customer = $product->customer->name." | ".$product->customer->phone." | ".$product->customer->address." | ".$product->customer->cnic;
+        else
+            $soldProduct->customer = $request->c_name." | ".$request->c_phone;
         $soldProduct->sold_at = $product->sold_at;
         $soldProduct->sold_quantity = $product->sold_quantity;
 

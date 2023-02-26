@@ -24,9 +24,13 @@
                 <div class="col-span-6 sm:col-span-3">
                   <label for="brand" class="block text-sm font-medium text-gray-700">Product Brand</label>
                   <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" v-if="errors.brand">{{ errors.brand }}</div>
-                  <select id="brand" autocomplete="off" v-model="form.brand_id" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  <input type="text" autocomplete="off" v-model="form.brand_name" id="brand" list="brand_list" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"/>
+                  <datalist id="brand_list" >
+                    <option v-for="brand in brands" :value="brand.name"></option>
+                  </datalist>
+                  <!-- <select id="brand" autocomplete="off" v-model="form.brand_id" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     <option v-for="brand in brands" :value="brand.id">{{ brand.name }}</option>
-                  </select>
+                  </select> -->
                 </div>
 
                 <div class="col-span-6 sm:col-span-3">
@@ -34,8 +38,36 @@
                   <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" v-if="errors.p_model">{{ errors.p_model }}</div>
                   <input type="text" autocomplete="off" v-model="form.p_model" id="model" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                 </div>
-
+                
                 <div class="col-span-6 sm:col-span-3">
+                  <label for="toogleA" class="flex items-center cursor-pointer"> 
+                    <!-- toggle -->
+                    <div class="relative">
+                      <!-- input -->
+                      <input v-on:click="isHidden = !isHidden" id="toogleA" type="checkbox" class="sr-only" />
+                      <!-- line -->
+                      <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                      <!-- dot -->
+                      <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                    </div>
+                    <!-- label -->
+                    <div class="ml-3 text-gray-700 font-medium">WalkIn Seller</div>
+                  </label>
+                </div>
+
+                <div v-if="isHidden" class="col-span-6 sm:col-span-3">
+                  <label for="p_name" class="block text-sm font-medium text-gray-700">Seller Name</label>
+                  <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" v-if="errors.s_name">{{ errors.s_name }}</div>
+                  <input type="text" autocomplete="off" v-model="form.s_name" id="s_name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                </div>
+
+                <div v-if="isHidden" class="col-span-6 sm:col-span-3">
+                  <label for="p_name" class="block text-sm font-medium text-gray-700">Seller Phone#</label>
+                  <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" v-if="errors.s_phone">{{ errors.s_phone }}</div>
+                  <input type="text" autocomplete="off" v-model="form.s_phone" id="s_phone" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                </div>
+
+                <div v-if="!isHidden" class="col-span-6 sm:col-span-3">
                   <label for="seller_id" class="block text-sm font-medium text-gray-700">Product Purchsed From</label>
                   <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" v-if="errors.seller_id">{{ errors.seller_id }}</div>
                   <select id="seller_id" autocomplete="off" v-model="form.seller_id" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -44,7 +76,7 @@
                 </div>
 
                 <div class="col-span-6 sm:col-span-3">
-                  <label for="price" class="block text-sm font-medium text-gray-700">Product Price</label>
+                  <label for="price" class="block text-sm font-medium text-gray-700">Product Purchase Price</label>
                   <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" v-if="errors.price">{{ errors.price }}</div>
                   <input type="number" autocomplete="off" v-model="form.price" id="price"  class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                 </div>
@@ -70,7 +102,7 @@
                     <textarea id="description" name="description" v-model="form.description" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Some Extra Information about this product" />
                   </div>
                   <p class="mt-2 text-sm text-gray-500">
-                    Brief description about your product. i.e. IMEI, Ram, Storage etc.
+                    Brief description about your product
                   </p>
                 </div>
 
@@ -117,12 +149,14 @@
   export default {
     data() {
       return { 
-                
+        isHidden: false,      
         form: this.$inertia.form({
           p_name: null,
-          brand_id: null,
+          brand_name: null,
           p_model: null,
           seller_id: null,
+          s_name: null,
+          s_phone: null,
           price: null,
           sell_price: null,
           quantity: null,
@@ -140,6 +174,7 @@
                 this.form.p_images.push(selectedFiles[i]);
             }
       },
+
       submit() {
         this.form.post('/save-product')
       }
@@ -156,3 +191,17 @@
     },
   }
 </script>
+
+<style scoped>
+/* Toggle A */
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #4f46e4;
+}
+
+/* Toggle B */
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #4f46e4;
+}
+</style>

@@ -12,6 +12,7 @@ class Customer extends Model
     use SoftDeletes;
 
     protected $table = 'customers';
+    protected $fillable = ['name' , 'phone', 'store_id', 'status'];
 
     public function product()
     {

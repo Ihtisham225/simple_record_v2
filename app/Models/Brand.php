@@ -12,6 +12,7 @@ class Brand extends Model
     use SoftDeletes;
 
     protected $table = 'brands';
+    protected $fillable = ['name' , 'store_id', 'status'];
 
     public function product()
     {
