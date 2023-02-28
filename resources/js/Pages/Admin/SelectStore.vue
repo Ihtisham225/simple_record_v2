@@ -5,8 +5,8 @@
       <div class="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
         <div class="flex justify-start lg:w-0 lg:flex-1">
           <a href="#">
-            <span class="">Secure POS</span>
-            <img class="h-8 w-auto sm:h-10 inline" :src="'/logo/logo.svg'" alt="" />
+            <!-- <span class="">Secure POS</span> -->
+            <img class="h-15 w-auto sm:h-20 inline" :src="'/logo/new_logo.png'" alt="" />
           </a>
         </div>
         <div class="-mr-2 -my-2 md:hidden">

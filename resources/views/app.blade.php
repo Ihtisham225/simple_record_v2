@@ -5,9 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>Secure POS</title>
+        <title>Market قصر</title>
 
-        <link rel="shortcut icon" href="{{ asset('logo/logo.svg') }}" />
+        <link rel="shortcut icon" href="{{ asset('logo/shortcut_logo.png') }}" />
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">

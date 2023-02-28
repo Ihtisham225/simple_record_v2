@@ -9,7 +9,7 @@
             </button> -->
 
             <input class="border-2 border-gray-300 bg-white ml-7 h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
-            type="search" v-model="searchQuery" placeholder="Search">
+            type="search" v-model="searchQuery" placeholder="Search By Model">
         </div>
         <!--End Search-->
 
@@ -189,7 +189,7 @@ export default {
             return this.searchQuery
                 .toLowerCase()
                 .split(" ")
-                .every(v => item.name.toLowerCase().includes(v));
+                .every(v => item.model.toLowerCase().includes(v));
             });
         } else {
             return this.products.data;

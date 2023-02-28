@@ -55,7 +55,10 @@ class DashboardController extends Controller
     public function productSpecs($id)
     {
         $product = Product::find($id);
-        $brand = $product->brand->name;
+        if($product->brand_id != null)
+            $brand = $product->brand->name;
+        else
+            $brand = $product->brand_name;
         return Inertia::render('ProductSpecs', ['product' => $product, 'brand' => $brand]);
     }
 }

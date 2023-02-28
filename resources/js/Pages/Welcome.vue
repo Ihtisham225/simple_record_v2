@@ -6,8 +6,8 @@
       <div class="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
         <div class="flex justify-start lg:w-0 lg:flex-1">
           <a href="#">
-            <img class="h-8 w-auto sm:h-10 inline" :src="'/logo/logo.svg'" alt="" />
-            <span class="">Secure POS</span>
+            <img class="h-15 w-auto sm:h-20 inline" :src="'/logo/new_logo.png'" alt="" />
+            <!-- <span class="">Secure POS</span> -->
           </a>
         </div>
         <div class="-mr-2 -my-2 md:hidden">
@@ -127,7 +127,7 @@
       <div class="lg:text-center">
         <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Welcome</h2>
         <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-          Secure And Efficent Point Of Sale
+          Market قصر
         </p>
         <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
           Now, you can search the Laptop, Mobile and any other digital devices from home without going to the
@@ -169,8 +169,8 @@
     <div class="md:flex md:justify-between">
         <div class="mb-6 md:mb-0">
             <a href="https://securepos.pk/" class="flex items-center">
-                <img :src="'/logo/logo.svg'" class="mr-3 h-8" alt="FlowBite Logo" />
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Secure POS</span>
+                <img :src="'/logo/new_logo.png'" class="mr-3 h-13" alt="FlowBite Logo" />
+                <!-- <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Market قصر</span> -->
             </a>
         </div>
         <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
@@ -200,7 +200,7 @@
     </div>
     <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
     <div class="sm:flex sm:items-center sm:justify-between">
-        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2022 <a href="https://securepos.pk/" class="hover:underline">Secure Pos™</a>. All Rights Reserved.
+        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://securepos.pk/" class="hover:underline">Market قصر™</a>. All Rights Reserved.
         </span>
         <div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
             <a href="https://web.facebook.com/profile.php?id=100004237964678" target="_blank" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
