@@ -18,22 +18,10 @@
                             <section class="py-8 bg-blueGray-50 overflow-hidden">
                             <div class="container px-4 mx-auto">
                                 <div class="flex flex-wrap -mx-4 xl:-mx-7">
-                                <div class="w-full md:w-1/2 xl:w-1/4 px-4 xl:px-7 mb-8 xl:mb-0">
+                                <div class="w-full md:w-1/2 xxl:w-1/4 px-4 xl:px-7 mb-8 xl:mb-15">
                                     <div class="h-full pt-10 px-5 pb-6 text-center bg-red-100 rounded-3xl hover:shadow-lg">
-                                    <a href="/list-customer">
-                                    <h3 class="mb-6 text-sm text-darkBlueGray-300 font-heading font-medium">Engaged Customers</h3>
-                                    <div class="flex items-center justify-center mb-6">
-                                        <span class="inline-block mr-2 text-6xl font-heading font-medium">{{ totalcustomers }}</span>
-                                        <div class="px-3 text-center bg-green-200 bg-opacity-70 rounded-full">
-                                        </div>
-                                    </div>
-                                    </a>
-                                    </div>
-                                </div>
-                                <div class="w-full md:w-1/2 xl:w-1/4 px-4 xl:px-7 mb-8 xl:mb-0">
-                                    <div class="h-full pt-10 px-5 pb-6 text-center bg-green-100 rounded-3xl hover:shadow-lg">
-                                    <h3 class="mb-6 text-sm text-darkBlueGray-300 font-heading font-medium">Products in store</h3>
                                     <a href="/list">
+                                    <h3 class="mb-6 text-sm text-darkBlueGray-300 font-heading font-medium">Products In Store</h3>
                                     <div class="flex items-center justify-center mb-6">
                                         <span class="inline-block mr-2 text-6xl font-heading font-medium">{{ totalproducts }}</span>
                                         <div class="px-3 text-center bg-green-200 bg-opacity-70 rounded-full">
@@ -42,22 +30,34 @@
                                     </a>
                                     </div>
                                 </div>
-                                <div class="w-full md:w-1/2 xl:w-1/4 px-4 xl:px-7 mb-8 md:mb-0">
-                                    <div class="h-full pt-10 px-5 pb-6 text-center bg-blue-100 rounded-3xl hover:shadow-lg">
-                                    <a href="/list-brand">
-                                    <h3 class="mb-6 text-sm text-darkBlueGray-300 font-heading font-medium">Brands Available</h3>
+                                <div class="w-full md:w-1/2 xxl:w-1/4 px-4 xl:px-7 mb-8 mb-8 xl:mb-15">
+                                    <div class="h-full pt-10 px-5 pb-6 text-center bg-green-100 rounded-3xl hover:shadow-lg">
+                                    <h3 class="mb-6 text-sm text-darkBlueGray-300 font-heading font-medium">Products Sold</h3>
+                                    <a href="/sold-products">
                                     <div class="flex items-center justify-center mb-6">
                                         <span class="inline-block mr-2 text-6xl font-heading font-medium">{{ totalbrands }}</span>
+                                        <div class="px-3 text-center bg-green-200 bg-opacity-70 rounded-full">
+                                        </div>
+                                    </div>
+                                    </a>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/2 xxl:w-1/4 px-4 xl:px-7 mb-8 mb-8 xl:mb-15">
+                                    <div class="h-full pt-10 px-5 pb-6 text-center bg-blue-100 rounded-3xl hover:shadow-lg">
+                                    <a href="/sold-products">
+                                    <h3 class="mb-6 text-sm text-darkBlueGray-300 font-heading font-medium">Total Profit</h3>
+                                    <div class="flex items-center justify-center mb-6">
+                                        <span class="inline-block mr-2 text-6xl font-heading font-medium">Rs.{{ totalbrands }}</span>
                                         <div class="px-3 text-center bg-red-200 bg-opacity-70 rounded-full">
                                         </div>
                                     </div>
                                     </a>
                                     </div>
                                 </div>
-                                <div class="w-full md:w-1/2 xl:w-1/4 px-4 xl:px-7">
+                                <div class="w-full md:w-1/2 xxl:w-1/4 px-4 xl:px-7 mb-8 xl:mb-15">
                                     <div class="h-full pt-10 px-5 pb-6 text-center bg-yellow-100 rounded-3xl hover:shadow-lg">
                                     <a href="/list-seller">
-                                    <h3 class="mb-6 text-sm text-darkBlueGray-300 font-heading font-medium">Total Sellers</h3>
+                                    <h3 class="mb-6 text-sm text-darkBlueGray-300 font-heading font-medium">Total Expenses</h3>
                                     <div class="flex items-center justify-center mb-6">
                                         <span class="inline-block mr-2 text-6xl font-heading font-medium">{{ totalsellers }}</span>
                                         <div class="px-3 text-center bg-green-200 bg-opacity-70 rounded-full">

@@ -20,9 +20,13 @@ class CreateSoldProductsTable extends Migration
             $table->string('model');
             $table->string('customer');
             $table->unsignedBigInteger('store_id');
+            $table->unsignedBigInteger('product_id');
             $table->string('description')->nullable();
             $table->integer('sold_at');
             $table->integer('sold_quantity');
+            $table->integer('returned_quantity')->nullable();
+            $table->integer('return_status')->nullable()->default(0);
+            $table->string('returned_at')->nullable();
             $table->softDeletesTz('deleted_at');
             $table->timestamps();
         });

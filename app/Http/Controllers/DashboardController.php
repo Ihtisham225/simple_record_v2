@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Seller;
+use App\Models\SoldProduct;
 use App\Models\Store;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
@@ -29,9 +30,10 @@ class DashboardController extends Controller
         $totalcustomers = count(Customer::where('store_id', session('store_id'))->get());
         $totalsellers = count(Seller::where('store_id', session('store_id'))->get());
         $totalbrands = count(Brand::where('store_id', session('store_id'))->get());
-        $totalproducts = count(Product::where('store_id', session('store_id'))->get());
+        $totalproducts = Product::where('store_id', session('store_id'))->where('status', 1)->count();
+        $totalRevenue = SoldProduct::where('store_id', session('store_id'))->where('return_status', '0')->count();
 
-        return Inertia::render('Admin/Dashboard', ['id' => session('store_id'), 'totalcustomers' => $totalcustomers, 'totalsellers' => $totalsellers, 'totalbrands' => $totalbrands, 'totalproducts' => $totalproducts]);
+        return Inertia::render('Admin/Dashboard', ['id' => session('store_id'), 'totalcustomers' => $totalcustomers, 'totalsellers' => $totalsellers, 'totalbrands' => $totalRevenue, 'totalproducts' => $totalproducts]);
     }
 
 

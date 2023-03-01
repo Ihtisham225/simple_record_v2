@@ -39,6 +39,9 @@
                             Selling Date
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Returned Date
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Actions
                             </th>
                         </tr>
@@ -47,7 +50,7 @@
                         <tr v-for="r of resultQuery" :key="r.id">
                             <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">{{ r.name }}</div>
-                            <!-- <div class="text-sm text-gray-500">{{ person.department }}</div> -->
+                            <div class="text-sm text-gray-500">{{ r.return_status == 1 ? 'Returned' : 'Not Returned' }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">{{ r.model }}</div>
@@ -67,6 +70,10 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900"> {{ moment(r.updated_at).format('DD-MMM-YYYY') }} </div>
+                            <!-- <div class="text-sm text-gray-500">{{ person.department }}</div> -->
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900"> {{ r.returned_at != null ? r.returned_at : 'Not Returned' }} </div>
                             <!-- <div class="text-sm text-gray-500">{{ person.department }}</div> -->
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

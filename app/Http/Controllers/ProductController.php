@@ -26,14 +26,26 @@ class ProductController extends Controller
     //list all products
     public function list()
     {
+        $totalbudget = Product::where('store_id', session('store_id'))->where('status', '1')->pluck('price');
+        $totalquantity = Product::where('store_id', session('store_id'))->where('status', '1')->pluck('quantity');
+        $overallbudget = 0;
+
+        foreach ($totalquantity as $quantity)
+        {
+            foreach ($totalbudget as $budget)
+            {
+                $overallbudget += $quantity * $budget; 
+            }
+        }
        
         return Inertia::render('Admin/Products/list', 
-            ['products' => Product::where('store_id', session('store_id'))
-                ->with('brand', 'seller', 'customer')
-                ->latest()
-                ->paginate(10), 'totalbudget' => array_sum(Product::where('store_id', session('store_id'))->get()
-                ->pluck('price')->toArray()) ?? 0, 
-                'totalproducts' => count(Product::where('store_id', session('store_id'))->get())
+            [
+                'products' => Product::where('store_id', session('store_id'))
+                                    ->with('brand', 'seller', 'customer')
+                                    ->latest()
+                                    ->paginate(10), 
+                'totalbudget' => $overallbudget, 
+                'totalproducts' => count(Product::where('store_id', session('store_id'))->where('status', '1')->get())
             ]);
     }
 
@@ -222,7 +234,7 @@ class ProductController extends Controller
         $product = Product::find($request->p_id);
         $product->sold_at = ($request->sold_at == '' ? 0 : $request->sold_at);
 
-        if($product->customer_id != '')
+        if($request->customer_id != '')
             $product->customer_id = $request->customer_id;
         else
         {
@@ -264,6 +276,8 @@ class ProductController extends Controller
         $soldProduct->model = $product->model;
         $soldProduct->description = $product->description;
         $soldProduct->store_id = session('store_id');
+        $soldProduct->product_id = $product->id;
+        $soldProduct->return_status = 0;
         // $soldProduct->product_id = $request->p_id;
         if($request->customer_id != '')
             $soldProduct->customer = $product->customer->name." | ".$product->customer->phone." | ".$product->customer->address." | ".$product->customer->cnic;
@@ -290,6 +304,12 @@ class ProductController extends Controller
         $product->sold_quantity = 0;
         $product->quantity = $product->quantity + $request->quantity;
         $product->status = 1;
+
+        $sold_product = SoldProduct::where('product_id', $id)->where('return_status', '0')->first();
+        $sold_product->return_status = 1;
+        $sold_product->returned_quantity = $request->quantity;
+        $sold_product->returned_at = now()->format('d-M-Y');
+        $sold_product->save();
 
         if($product->save())
             return Redirect::route('list-product')->with('success', 'Product Returned!');

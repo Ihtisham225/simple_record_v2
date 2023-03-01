@@ -37,9 +37,9 @@
 
                 <div class="col-span-6 sm:col-span-3">
                   <label for="model" class="block text-sm font-medium text-gray-700">Product Purchased From</label>
-                  <input type="text" readonly :value="product.seller.name" id="model" autocomplete="model" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                  <input type="text" readonly :value="product.seller_id != null ? product.seller.name : product.seller_name" id="model" autocomplete="model" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                 </div>
-
+                
                 <div class="col-span-6 sm:col-span-3">
                   <label for="quantity" class="block text-sm font-medium text-gray-700">Available Quantity</label>
                   <input type="number" readonly :value="product.quantity" id="quantity" autocomplete="sold_quantity" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
