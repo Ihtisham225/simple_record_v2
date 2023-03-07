@@ -35,7 +35,7 @@
                                     <h3 class="mb-6 text-sm text-darkBlueGray-300 font-heading font-medium">Products Sold</h3>
                                     <a href="/sold-products">
                                     <div class="flex items-center justify-center mb-6">
-                                        <span class="inline-block mr-2 text-6xl font-heading font-medium">{{ totalbrands }}</span>
+                                        <span class="inline-block mr-2 text-6xl font-heading font-medium">{{ totalSold }}</span>
                                         <div class="px-3 text-center bg-green-200 bg-opacity-70 rounded-full">
                                         </div>
                                     </div>
@@ -47,7 +47,7 @@
                                     <a href="/sold-products">
                                     <h3 class="mb-6 text-sm text-darkBlueGray-300 font-heading font-medium">Total Profit</h3>
                                     <div class="flex items-center justify-center mb-6">
-                                        <span class="inline-block mr-2 text-6xl font-heading font-medium">Rs.{{ totalbrands }}</span>
+                                        <span class="inline-block mr-2 text-6xl font-heading font-medium">Rs.{{ totalRevenue }}</span>
                                         <div class="px-3 text-center bg-red-200 bg-opacity-70 rounded-full">
                                         </div>
                                     </div>
@@ -56,10 +56,10 @@
                                 </div>
                                 <div class="w-full md:w-1/2 xxl:w-1/4 px-4 xl:px-7 mb-8 xl:mb-15">
                                     <div class="h-full pt-10 px-5 pb-6 text-center bg-yellow-100 rounded-3xl hover:shadow-lg">
-                                    <a href="/list-seller">
+                                    <a href="/list-expense">
                                     <h3 class="mb-6 text-sm text-darkBlueGray-300 font-heading font-medium">Total Expenses</h3>
                                     <div class="flex items-center justify-center mb-6">
-                                        <span class="inline-block mr-2 text-6xl font-heading font-medium">{{ totalsellers }}</span>
+                                        <span class="inline-block mr-2 text-6xl font-heading font-medium">Rs. {{ totalExpenses }}</span>
                                         <div class="px-3 text-center bg-green-200 bg-opacity-70 rounded-full">
                                         </div>
                                     </div>
@@ -95,9 +95,10 @@ export default {
         //products array passed from the controller
         totalbudget: Object,
         totalproducts: Object,
-        totalbrands: Object,
+        totalRevenue: Object,
         totalcustomers: Object,
-        totalsellers: Object,
+        totalExpenses: Object,
+        totalSold: Object,
         id: Object,
     },
     components: {

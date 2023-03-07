@@ -44,6 +44,7 @@ class ProductController extends Controller
                                     ->with('brand', 'seller', 'customer')
                                     ->latest()
                                     ->paginate(10), 
+                'store_name' => Store::find(session('store_id'))->name,
                 'totalbudget' => $overallbudget, 
                 'totalproducts' => count(Product::where('store_id', session('store_id'))->where('status', '1')->get())
             ]);
@@ -66,8 +67,9 @@ class ProductController extends Controller
             $names = [];
             foreach($request->file('p_images') as $image)
             {
-                $destinationPath = 'products/';
-                $filename = $image->getClientOriginalName();
+                $storeName = Store::find(session('store_id'))->name;
+                $destinationPath = 'products/'.$storeName;
+                $filename = session('store_id').'_'.rand(1, 10000).'_'.$image->getClientOriginalName();
                 $image->move($destinationPath, $filename);
                 array_push($names, $filename);
             } 
@@ -169,21 +171,40 @@ class ProductController extends Controller
 
         
         $product->name = $request->p_name;
-        $product->brand_id = $request->brand_id;
+        $product->brand_name = $request->brand_name;
         $product->model = $request->p_model;
-        $product->seller_id = $request->seller_id;
+
+        if($request->seller_id != '')
+        {
+            $product->seller_id = $request->seller_id;
+        }
+        else
+        {
+            $product->seller_name = $request->s_name;
+            $product->seller_phone = $request->s_phone;
+
+            //saving seller to database for future use
+            $seller = Seller::updateOrCreate(
+                [
+                    'name' => $request->s_name,
+                    'phone' => $request->s_phone,
+                    'store_id' => session('store_id'),
+                    'status' => '1'
+                ]
+            );
+            $seller->save();
+        }
+
         $product->price = $request->price;
         $product->sell_price = $request->sell_price;
         $product->quantity = $request->quantity;
-        $product->sold_at = ($request->sold_at == '' ? 0 : $request->sold_at);
-        $product->customer_id = $request->customer_id;
-        $product->status = $request->status;
+        $product->status = 1;
         $product->store_id = session('store_id');
         $product->description = $request->description;
 
         
 
-        if($product->save())
+        if($product->update())
             return Redirect::route('list-product')->with('success', $request->p_name.' Updated!');
         else
             return Redirect::route('list-product')->with('error', $request->p_name.'Not Updated!');

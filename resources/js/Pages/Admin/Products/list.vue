@@ -65,7 +65,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0 h-10 w-10">
-                                <img class="h-10 w-10 rounded-full" :src="'products/'+r.images[0]" alt="" />
+                                <img class="h-10 w-10 rounded-full" :src="'products/'+store_name+'/'+r.images[0]" alt="" />
                                 </div>
                                 <div class="ml-4">
                                 <div class="text-sm font-medium text-gray-900">
@@ -286,6 +286,7 @@ export default {
 
         //products array passed from the controller
         products: Object,
+        store_name: Object,
         totalbudget: Object,
         totalproducts: Object,
     },

@@ -24,6 +24,12 @@ class Store extends Model
         return $this->hasMany(Brand::class, 'store_id');
     }
 
+    //one store can have many expenses
+    public function expense()
+    {
+        return $this->hasMany(Expense::class, 'store_id');
+    }
+
     //one store can have many sellers
     public function seller()
     {

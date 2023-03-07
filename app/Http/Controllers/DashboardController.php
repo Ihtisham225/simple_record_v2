@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Models\Customer;
+use App\Models\Expense;
 use App\Models\Product;
 use App\Models\Seller;
 use App\Models\SoldProduct;
@@ -28,12 +29,12 @@ class DashboardController extends Controller
         session(['store_id' => $id]);
 
         $totalcustomers = count(Customer::where('store_id', session('store_id'))->get());
-        $totalsellers = count(Seller::where('store_id', session('store_id'))->get());
-        $totalbrands = count(Brand::where('store_id', session('store_id'))->get());
+        $totalExpenses = Expense::where('store_id', session('store_id'))->sum('amount');
+        $totalSold = count(SoldProduct::where('store_id', session('store_id'))->get());
         $totalproducts = Product::where('store_id', session('store_id'))->where('status', 1)->count();
-        $totalRevenue = SoldProduct::where('store_id', session('store_id'))->where('return_status', '0')->count();
+        $totalRevenue = SoldProduct::where('store_id', session('store_id'))->where('return_status', '0')->sum('sold_at');
 
-        return Inertia::render('Admin/Dashboard', ['id' => session('store_id'), 'totalcustomers' => $totalcustomers, 'totalsellers' => $totalsellers, 'totalbrands' => $totalRevenue, 'totalproducts' => $totalproducts]);
+        return Inertia::render('Admin/Dashboard', ['id' => session('store_id'), 'totalcustomers' => $totalcustomers, 'totalExpenses' => $totalExpenses, 'totalRevenue' => $totalRevenue, 'totalproducts' => $totalproducts, 'totalSold' => $totalSold]);
     }
 
 

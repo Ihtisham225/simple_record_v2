@@ -28,12 +28,14 @@
 
                 <div class="col-span-6 sm:col-span-3">
                   <label for="brand" class="block text-sm font-medium text-gray-700">Product Brand</label>
-                  <!-- start error Message -->
                   <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" v-if="errors.brand">{{ errors.brand }}</div>
-                  <!-- end error Message -->
-                  <select id="brand" autocomplete="off" v-model="form.brand_id" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  <input type="text" autocomplete="off" v-model="form.brand_name" id="brand" list="brand_list" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"/>
+                  <datalist id="brand_list" >
+                    <option v-for="brand in brands" :value="brand.name"></option>
+                  </datalist>
+                  <!-- <select id="brand" autocomplete="off" v-model="form.brand_id" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     <option v-for="brand in brands" :value="brand.id">{{ brand.name }}</option>
-                  </select>
+                  </select> -->
                 </div>
 
                 <div class="col-span-6 sm:col-span-3">
@@ -43,19 +45,38 @@
                 </div>
 
                 <div class="col-span-6 sm:col-span-3">
+                  <label for="toogleA" class="flex items-center cursor-pointer"> 
+                    <!-- toggle -->
+                    <div class="relative">
+                      <!-- input -->
+                      <input v-on:click="isHidden = !isHidden" id="toogleA" type="checkbox" class="sr-only" />
+                      <!-- line -->
+                      <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                      <!-- dot -->
+                      <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                    </div>
+                    <!-- label -->
+                    <div class="ml-3 text-gray-700 font-medium">WalkIn Seller</div>
+                  </label>
+                </div>
+
+                <div v-if="isHidden" class="col-span-6 sm:col-span-3">
+                  <label for="p_name" class="block text-sm font-medium text-gray-700">Seller Name</label>
+                  <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" v-if="errors.s_name">{{ errors.s_name }}</div>
+                  <input type="text" autocomplete="off" v-model="form.s_name" id="s_name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                </div>
+
+                <div v-if="isHidden" class="col-span-6 sm:col-span-3">
+                  <label for="p_name" class="block text-sm font-medium text-gray-700">Seller Phone#</label>
+                  <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" v-if="errors.s_phone">{{ errors.s_phone }}</div>
+                  <input type="text" autocomplete="off" v-model="form.s_phone" id="s_phone" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                </div>
+
+                <div v-if="!isHidden" class="col-span-6 sm:col-span-3">
                   <label for="seller_id" class="block text-sm font-medium text-gray-700">Product Purchsed From</label>
                   <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" v-if="errors.seller_id">{{ errors.seller_id }}</div>
                   <select id="seller_id" autocomplete="off" v-model="form.seller_id" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     <option v-for="seller in sellers" :value="seller.id">{{ seller.name }}</option>
-                  </select>
-                </div>
-
-                <div class="col-span-6 sm:col-span-3">
-                  <label for="customer_id" class="block text-sm font-medium text-gray-700">Product Sold to</label>
-                  <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" v-if="errors.customer_id">{{ errors.customer_id }}</div>
-                  <select id="customer_id" autocomplete="off" v-model="form.customer_id" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <option value="0" selected>None</option>
-                    <option v-for="customer in customers" :value="customer.id">{{ customer.name }}</option>
                   </select>
                 </div>
 
@@ -77,23 +98,6 @@
                   <label for="sell_price" class="block text-sm font-medium text-gray-700">Product Selling Price</label>
                   <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" v-if="errors.sell_price">{{ errors.sell_price }}</div>
                   <input type="number" autocomplete="off" v-model="form.sell_price" id="sell_price" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                </div>
-
-                <div class="col-span-6 sm:col-span-3">
-                  <label for="sold_at" class="block text-sm font-medium text-gray-700">Product Sold At</label>
-                  <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" v-if="errors.sold_at">{{ errors.sold_at }}</div>
-                  <input type="number" v-model="form.sold_at" id="sold_at" autocomplete="off" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
-                </div>
-
-                <div class="col-span-6 sm:col-span-3">
-                  <label for="status" class="block text-sm font-medium text-gray-700">Product Staus</label>
-                  <!-- start error Message -->
-                  <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" v-if="errors.status">{{ errors.status }}</div>
-                  <!-- end error Message -->
-                  <select id="status" v-model="form.status" autocomplete="off" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <option value="1"> In Stock </option>
-                    <option value="0"> Sold </option>
-                  </select>
                 </div>
 
                 <div class="col-span-6 sm:col-span-3">
@@ -159,16 +163,19 @@
 
     data() {
       return { 
+        isHidden: false, 
         form: this.$inertia.form({
             p_id: this.product.id,
             p_name: this.product.name,
-            brand_id: this.product.brand_id,
+            brand_name: this.product.brand_name,
             p_model: this.product.model,
             price: this.product.price,
             sell_price: this.product.sell_price,
             quantity: this.product.quantity,
             sold_at: this.product.sold_at,
             seller_id: this.product.seller_id,
+            s_name: this.product.seller_name,
+            s_phone: this.product.seller_phone,
             customer_id: this.product.customer_id,
             status: this.product.status,
             p_images: [],
@@ -195,3 +202,17 @@
     },
   }
 </script>
+
+<style scoped>
+/* Toggle A */
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #4f46e4;
+}
+
+/* Toggle B */
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #4f46e4;
+}
+</style>

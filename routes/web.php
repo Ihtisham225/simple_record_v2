@@ -3,6 +3,7 @@
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\StoreController;
@@ -173,6 +174,22 @@ Route::get('/customer-detail/{id}', [CustomerController::class, 'detail'])->name
 Route::delete('/delete-customer/{id}', [CustomerController::class, 'delete'])->name('delete-customer')->middleware('auth');
 
 ////////////////////////////// END OF CUSTOMER ROUTES //////////////////////////////////////////////////////////
+
+
+
+
+/**
+ * 
+ * Expenses Routes Starts here
+ */
+Route::get('/list-expense', [ExpenseController::class, 'list'])->name('list-expense')->middleware('auth');
+Route::get('/create-expense', [ExpenseController::class, 'create'])->name('create-expense')->middleware('auth');
+Route::post('/save-expense', [ExpenseController::class, 'save'])->name('save-expense')->middleware('auth');
+Route::get('/edit-expense/{id}', [ExpenseController::class, 'edit'])->name('edit-expense')->middleware('auth');
+Route::post('/update-expense', [ExpenseController::class, 'update'])->name('update-expense')->middleware('auth');
+Route::delete('/delete-expense/{id}', [ExpenseController::class, 'delete'])->name('delete-expense')->middleware('auth');
+
+////////////////////////////// END OF BRAND ROUTES //////////////////////////////////////////////////////////
 
 
 /******************************************* END OF CUSTOM ROUTES *********************************************************************************** */

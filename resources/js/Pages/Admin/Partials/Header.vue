@@ -54,6 +54,10 @@
             Customers
           </a>
 
+          <a href="/list-expense" class="text-base font-medium text-gray-500 hover:text-gray-900">
+            Expenses
+          </a>
+
           <Popover class="relative" v-slot="{ open }">
             <PopoverButton :class="[open ? 'text-gray-900' : 'text-gray-500', 'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500']">
               <span>Products</span>
