@@ -345,14 +345,13 @@ class ProductController extends Controller
             if($request->quantity == $product->sold_quantity)
             {
                 $sold_product->return_status = 1;
-                $product->status = 1;
             }
             else
             {
                 $sold_product->return_status = 0;
-                $product->status = 1;
             }
-            
+
+            $product->status = 1;
             $product->sold_quantity = $sold_product->sold_quantity - $request->quantity;
             $sold_product->sold_quantity = $sold_product->sold_quantity - $request->quantity;
             $product->quantity = $product->quantity + $request->quantity;

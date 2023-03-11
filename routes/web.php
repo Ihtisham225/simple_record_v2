@@ -68,6 +68,15 @@ Route::get('/select-store',[DashboardController::class, 'selectStore']);
 //Specific dashboard for specific store
 Route::get('/dashboard/{id}', [DashboardController::class, 'dashboard']);
 
+
+
+Route::get('/filter-today/{id}', [DashboardController::class, 'filter_today'])->name('filter.today');
+Route::get('/filter-week/{id}', [DashboardController::class, 'filter_week'])->name('filter.week');
+Route::get('/filter-month/{id}', [DashboardController::class, 'filter_month'])->name('filter.month');
+Route::get('/filter-year/{id}', [DashboardController::class, 'filter_year'])->name('filter.year');
+Route::get('/filter-date/{id}', [DashboardController::class, 'filter_date'])->name('filter.date');
+
+
 //shwoing products of specific store to all users
 Route::get('/products/{id}', [DashboardController::class, 'products']);
 
@@ -101,6 +110,8 @@ Route::get('/edit-store/{id}', [StoreController::class, 'edit'])->name('edit-sto
 Route::post('/update-store', [StoreController::class, 'update'])->name('update-store')->middleware('auth');
 Route::get('/store-detail/{id}', [StoreController::class, 'detail'])->name('store-detail')->middleware('auth');
 Route::delete('/delete-store/{id}', [StoreController::class, 'delete'])->name('delete-store')->middleware('auth');
+
+
 ////////////////////////////// END OF STORE ROUTES //////////////////////////////////////////////////////////
 
 
