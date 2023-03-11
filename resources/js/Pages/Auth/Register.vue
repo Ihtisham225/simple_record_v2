@@ -1,7 +1,7 @@
 <template>
     <jet-authentication-card>
         <template #logo>
-            Secure POS<img class="h-8 w-auto sm:h-10 inline" :src="'logo/logo.svg'" alt="" />
+            Secure POS<img class="h-8 w-auto sm:h-10 inline" :src="'logo/new_logo.png'" alt="" />
             <!-- <jet-authentication-card-logo /> -->
         </template>
 
