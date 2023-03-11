@@ -50,7 +50,7 @@
                         <tr v-for="r of resultQuery" :key="r.id">
                             <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">{{ r.name }}</div>
-                            <div class="text-sm text-gray-500">{{ r.return_status == 1 ? 'Returned' : 'Not Returned' }}</div>
+                            <div class="text-sm text-red-500">{{ r.return_status == 1 ? 'Returned' : '' }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">{{ r.model }}</div>
@@ -73,7 +73,7 @@
                             <!-- <div class="text-sm text-gray-500">{{ person.department }}</div> -->
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900"> {{ r.returned_at != null ? r.returned_at : 'Not Returned' }} </div>
+                            <div class="text-sm text-gray-900"> {{ r.returned_at != null ? r.returned_at : '' }} </div>
                             <!-- <div class="text-sm text-gray-500">{{ person.department }}</div> -->
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -87,11 +87,11 @@
                             </button>
 
                             <!-- delete product -->
-                            <button title="delete" @click.prevent="deleteProduct(`${r.id}`)" class="text-indigo-600 hover:text-danger-900">
+                            <!-- <button title="delete" @click.prevent="deleteProduct(`${r.id}`)" class="text-indigo-600 hover:text-danger-900">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
                                 </svg>
-                            </button>
+                            </button> -->
                             </td>
                         </tr>
                         </tbody>

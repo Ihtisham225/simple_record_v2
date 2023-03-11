@@ -47,7 +47,7 @@
                                     <a href="/sold-products">
                                     <h3 class="mb-6 text-sm text-darkBlueGray-300 font-heading font-medium">Total Profit</h3>
                                     <div class="flex items-center justify-center mb-6">
-                                        <span class="inline-block mr-2 text-6xl font-heading font-medium">Rs.{{ totalRevenue }}</span>
+                                        <span class="inline-block mr-2 text-6xl font-heading font-medium">Rs.{{ totalProfit }}</span>
                                         <div class="px-3 text-center bg-red-200 bg-opacity-70 rounded-full">
                                         </div>
                                     </div>
@@ -95,7 +95,7 @@ export default {
         //products array passed from the controller
         totalbudget: Object,
         totalproducts: Object,
-        totalRevenue: Object,
+        totalProfit: Object,
         totalcustomers: Object,
         totalExpenses: Object,
         totalSold: Object,

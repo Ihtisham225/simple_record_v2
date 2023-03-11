@@ -30,11 +30,20 @@ class DashboardController extends Controller
 
         $totalcustomers = count(Customer::where('store_id', session('store_id'))->get());
         $totalExpenses = Expense::where('store_id', session('store_id'))->sum('amount');
-        $totalSold = count(SoldProduct::where('store_id', session('store_id'))->get());
-        $totalproducts = Product::where('store_id', session('store_id'))->where('status', 1)->count();
-        $totalRevenue = SoldProduct::where('store_id', session('store_id'))->where('return_status', '0')->sum('sold_at');
+        $totalSold = SoldProduct::where('store_id', session('store_id'))->where('return_status', 0)->sum('sold_quantity');
 
-        return Inertia::render('Admin/Dashboard', ['id' => session('store_id'), 'totalcustomers' => $totalcustomers, 'totalExpenses' => $totalExpenses, 'totalRevenue' => $totalRevenue, 'totalproducts' => $totalproducts, 'totalSold' => $totalSold]);
+        $totalproducts = Product::where('store_id', session('store_id'))->where('status', 1)->sum('quantity');
+        $totalProfit = SoldProduct::where('store_id', session('store_id'))->where('return_status', '0')->sum('profit');
+
+        return Inertia::render('Admin/Dashboard', 
+        [
+            'id' => session('store_id'), 
+            'totalcustomers' => $totalcustomers, 
+            'totalExpenses' => $totalExpenses, 
+            'totalProfit' => $totalProfit, 
+            'totalproducts' => $totalproducts, 
+            'totalSold' => $totalSold
+        ]);
     }
 
 
@@ -58,10 +67,11 @@ class DashboardController extends Controller
     public function productSpecs($id)
     {
         $product = Product::find($id);
+        $storeName = $product->store->name;
         if($product->brand_id != null)
             $brand = $product->brand->name;
         else
             $brand = $product->brand_name;
-        return Inertia::render('ProductSpecs', ['product' => $product, 'brand' => $brand]);
+        return Inertia::render('ProductSpecs', ['product' => $product, 'brand' => $brand, 'storeName' => $storeName]);
     }
 }

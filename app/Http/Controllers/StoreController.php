@@ -48,8 +48,8 @@ class StoreController extends Controller
         if($request->logo != '')
         {
             $file = $request->logo;
-            $fileName = $file->getClientOriginalName(); // getting image name
-            $file->move('store_logo/', $fileName);
+            $fileName = $request->name.'_'.rand(1, 10000).'_'.$file->getClientOriginalName(); // getting image name
+            $file->move('store_logo/'.$request->name.'/', $fileName);
             $store->logo = $fileName;
         }
         else
@@ -95,8 +95,8 @@ class StoreController extends Controller
         if($request->logo != '')
         {
             $file = $request->logo;
-            $fileName = $file->getClientOriginalName(); // getting image name
-            $file->move('store_logo/', $fileName);
+            $fileName = $request->name.'_'.rand(1, 10000).'_'.$file->getClientOriginalName(); // getting image name
+            $file->move('store_logo/'.$request->name.'/', $fileName);
             $store->logo = $fileName;
         }
 

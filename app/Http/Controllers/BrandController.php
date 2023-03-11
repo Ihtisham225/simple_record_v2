@@ -41,9 +41,9 @@ class BrandController extends Controller
         $brand->status = 1;
         
             if($brand->save())
-            return Redirect::route('create-brand')->with('success', $request->b_name.' Added!');
+            return Redirect::route('list-brand')->with('success', $request->b_name.' Added!');
         else
-            return Redirect::route('create-brand')->with('error', $request->b_name.' Not Added!');
+            return Redirect::route('list-brand')->with('error', $request->b_name.' Not Added!');
     }
 
 

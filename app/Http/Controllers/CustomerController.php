@@ -45,9 +45,9 @@ class CustomerController extends Controller
 
 
         if($customer->save())
-            return Redirect::route('create-customer')->with('success', $request->c_name.' Created!');
+            return Redirect::route('list-customer')->with('success', $request->c_name.' Created!');
         else
-            return Redirect::route('create-customer')->with('error', $request->c_name.' Not Created!');
+            return Redirect::route('list-customer')->with('error', $request->c_name.' Not Created!');
     }
 
 

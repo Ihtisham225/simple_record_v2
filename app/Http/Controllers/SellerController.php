@@ -43,9 +43,9 @@ class SellerController extends Controller
 
 
         if($seller->save())
-            return Redirect::route('create-seller')->with('success', $request->s_name.' Created!');
+            return Redirect::route('list-seller')->with('success', $request->s_name.' Created!');
         else
-            return Redirect::route('create-seller')->with('error', $request->s_name.' Not Created!');
+            return Redirect::route('list-seller')->with('error', $request->s_name.' Not Created!');
     }
 
 

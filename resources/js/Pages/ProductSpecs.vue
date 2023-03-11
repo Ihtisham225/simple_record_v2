@@ -27,7 +27,7 @@
       <!-- Image gallery -->
       <div class="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8 gap-y-4">
         <div v-for="image in product.images" class="aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block">
-          <img :src="'/products/'+image" :alt="image.alt" class="w-full h-full object-center object-cover" />
+          <img :src="'/products/'+storeName+'/'+image" :alt="image.alt" class="w-full h-full object-center object-cover" />
         </div>
       </div>
 
@@ -89,6 +89,7 @@ export default {
   props: {
     product: Object,
     brand: Object,
+    storeName: Object,
   },
 
   setup() {

@@ -71,8 +71,8 @@
                                 <div class="text-sm font-medium text-gray-900">
                                    <a :href="'/product-detail/'+r.id"> {{ r.name }} </a>
                                 </div>
-                                <div class="text-sm text-gray-500">
-                                    <!-- {{ person.email }} -->
+                                <div class="text-sm text-red-500">
+                                    {{ r.sold_quantity == 0 ? 'Returned' : '' }}
                                 </div>
                                 </div>
                             </div>
@@ -99,7 +99,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900"> {{ r.sold_quantity == null ? '0' : r.sold_quantity }} </div>
-                            <!-- <div class="text-sm text-gray-500">{{ person.department }}</div> -->
+                            <div class="text-sm text-red-500">{{ r.sold_quantity == 0 ? 'Returned' : '' }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">Rs. {{ r.sold_at }} </div>
@@ -107,7 +107,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap" v-if="r.customer_id != null" >
                             <div class="text-sm text-gray-900"><a :href="'/customer-detail/'+(r.customer ? r.customer.id : '#')"> {{ (r.customer ? r.customer.name : 'none') }} </a></div>
-                            <!-- <div class="text-sm text-gray-500">{{ person.department }}</div> -->
+                            <div class="text-sm text-red-500">{{ r.sold_quantity == 0 ? 'Returned' : '' }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap" v-else-if="r.customer_name != null">
                             <div class="text-sm text-gray-900">{{ r.customer_name != null ? r.customer_name : 'none' }}</div>
@@ -141,7 +141,7 @@
                             </a>
 
                             <!-- return product -->
-                            <button v-if="r.sold_at != 0 " @click.prevent="returnProduct(`${r.id}`)" title="return" class="text-indigo-600 hover:text-indigo-900">
+                            <button v-if="r.sold_quantity > 0 " @click.prevent="returnProduct(`${r.id}`)" title="return" class="text-indigo-600 hover:text-indigo-900">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M5 2a2 2 0 00-2 2v14l3.5-2 3.5 2 3.5-2 3.5 2V4a2 2 0 00-2-2H5zm4.707 3.707a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L8.414 9H10a3 3 0 013 3v1a1 1 0 102 0v-1a5 5 0 00-5-5H8.414l1.293-1.293z" clip-rule="evenodd" />
                             </svg>
@@ -156,11 +156,11 @@
                             </button> -->
 
                             <!-- delete product -->
-                            <button title="delete" @click.prevent="deleteProduct(`${r.id}`)" class="text-indigo-600 hover:text-danger-900">
+                            <!-- <button title="delete" @click.prevent="deleteProduct(`${r.id}`)" class="text-indigo-600 hover:text-danger-900">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
                                 </svg>
-                            </button>
+                            </button> -->
                             </td>
                         </tr>
                         </tbody>

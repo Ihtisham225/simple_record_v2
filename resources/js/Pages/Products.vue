@@ -9,7 +9,7 @@
         <h2 v-if="products == 0" class="text-2xl font-extrabold tracking-tight text-gray-900">This store is empty</h2>
         <div v-for="product in products" :key="product.id" class="group relative w-90 p-6 border-2 bg-white border-solid rounded-lg hover:shadow-2xl transition ease-in-out delay-150 duration-300">
           <div class="w-full min-h-80 border-b-2 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
-            <img :src="'/products/'+product.images[0]" alt="" class="w-full h-full object-center lg:w-full lg:h-full" />
+            <img :src="'/products/'+store.name+'/'+product.images[0]" alt="" class="w-full h-full object-center lg:w-full lg:h-full" />
           </div>
           <div class="mt-4 flex justify-between p-4">
             <div>

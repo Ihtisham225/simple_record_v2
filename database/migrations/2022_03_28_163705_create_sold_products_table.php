@@ -24,8 +24,9 @@ class CreateSoldProductsTable extends Migration
             $table->string('description')->nullable();
             $table->integer('sold_at');
             $table->integer('sold_quantity');
+            $table->integer('profit');
             $table->integer('returned_quantity')->nullable();
-            $table->integer('return_status')->nullable()->default(0);
+            $table->integer('return_status')->nullable();
             $table->string('returned_at')->nullable();
             $table->softDeletesTz('deleted_at');
             $table->timestamps();

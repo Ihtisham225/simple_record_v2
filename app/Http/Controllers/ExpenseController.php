@@ -48,9 +48,9 @@ public function save(ExpenseRequest $request)
     $expense->status = 1;
     
         if($expense->save())
-        return Redirect::route('create-expense')->with('success', $request->b_name.' Added!');
+        return Redirect::route('list-expense')->with('success', $request->b_name.' Added!');
     else
-        return Redirect::route('create-expense')->with('error', $request->b_name.' Not Added!');
+        return Redirect::route('list-expense')->with('error', $request->b_name.' Not Added!');
 }
 
 

@@ -129,7 +129,7 @@ class ProductController extends Controller
 
 
         if($product->save())
-            return Redirect::route('create-product')->with('success', $request->p_name.' Added!');
+            return Redirect::route('list-product')->with('success', $request->p_name.' Added!');
         else
             return Redirect::route('create-product')->with('error', $request->p_name.' Not Added!');
     }
@@ -154,8 +154,9 @@ class ProductController extends Controller
             $names = [];
             foreach($request->file('p_images') as $image)
             {
-                $destinationPath = 'products/';
-                $filename = $image->getClientOriginalName();
+                $storeName = Store::find(session('store_id'))->name;
+                $destinationPath = 'products/'.$storeName;
+                $filename = session('store_id').'_'.rand(1, 10000).'_'.$image->getClientOriginalName();
                 $image->move($destinationPath, $filename);
                 array_push($names, $filename);
             } 
@@ -198,7 +199,7 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->sell_price = $request->sell_price;
         $product->quantity = $request->quantity;
-        $product->status = 1;
+        // $product->status = 1;
         $product->store_id = session('store_id');
         $product->description = $request->description;
 
@@ -273,7 +274,11 @@ class ProductController extends Controller
             );
             $customer->save();
         }
-        $product->status = 0;
+
+        if($product->quantity == $request->sold_quantity)
+            $product->status = 0;
+        else
+            $product->status = 1;
 
 
         if($request->sold_quantity <= 0)
@@ -307,6 +312,14 @@ class ProductController extends Controller
         $soldProduct->sold_at = $product->sold_at;
         $soldProduct->sold_quantity = $product->sold_quantity;
 
+        //calculating profit
+        $purchasePrice = $product->price * $product->sold_quantity;
+        $sellPrice = $product->sold_at * $product->sold_quantity;
+
+        $profit = $sellPrice - $purchasePrice;
+
+        $soldProduct->profit = $profit;
+
         $soldProduct->save();
 
         if($product->save())
@@ -320,22 +333,46 @@ class ProductController extends Controller
     public function return(Request $request, $id)
     {
         $product = Product::find($id);
-        $product->sold_at = 0;
-        $product->customer_id = 0;
-        $product->sold_quantity = 0;
-        $product->quantity = $product->quantity + $request->quantity;
-        $product->status = 1;
-
         $sold_product = SoldProduct::where('product_id', $id)->where('return_status', '0')->first();
-        $sold_product->return_status = 1;
-        $sold_product->returned_quantity = $request->quantity;
-        $sold_product->returned_at = now()->format('d-M-Y');
-        $sold_product->save();
+        if($request->quantity <= $product->sold_quantity)
+        {
+       
+            //calculating profit
+            $remained_products = $sold_product->sold_quantity - $request->quantity;
+            $sold_product->profit = ($sold_product->profit * $remained_products) / $sold_product->sold_quantity;
 
-        if($product->save())
-            return Redirect::route('list-product')->with('success', 'Product Returned!');
+            //changing status
+            if($request->quantity == $product->sold_quantity)
+            {
+                $sold_product->return_status = 1;
+                $product->status = 1;
+            }
+            else
+            {
+                $sold_product->return_status = 0;
+                $product->status = 1;
+            }
+            
+            $product->sold_quantity = $sold_product->sold_quantity - $request->quantity;
+            $sold_product->sold_quantity = $sold_product->sold_quantity - $request->quantity;
+            $product->quantity = $product->quantity + $request->quantity;
+
+            $sold_product->returned_quantity = $request->quantity;
+            
+
+
+            $sold_product->returned_at = now()->format('d-M-Y');
+            $sold_product->save();
+
+            if($product->save())
+                return Redirect::route('list-product')->with('success', 'Product Returned!');
+            else
+                return Redirect::route('list-product')->with('error', 'Product Not Returned!');
+        }
         else
-            return Redirect::route('list-product')->with('error', 'Product Not Returned!');
+        {
+            return Redirect::route('list-product')->with('error', 'Returning products quantity is more than sold quantity!');
+        }
     }
 
 

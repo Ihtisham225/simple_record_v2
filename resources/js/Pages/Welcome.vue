@@ -145,7 +145,7 @@
               <div class="mt-6 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-x-6 row gap-y-8">
                 <div v-for="store in stores" :key="store.name" class="group relative border-2 bg-white border-solid rounded-xl hover:shadow-xl transition ease-in-out delay-150 duration-300 p-4">
                   <div class="relative w-full border-b-2 h-80 bg-white rounded-lg overflow-hidden group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
-                    <img :src="'/store_logo/'+store.logo" :alt="store.logo" class="w-full h-full object-center " />
+                    <img :src="'/store_logo/'+store.name+'/'+store.logo" :alt="store.logo" class="w-full h-full object-center " />
                   </div>
                   <h3 class="mt-6 text-3xl text-center font-bold text-gray-900">
                     <a :href="'/products/'+store.id">
