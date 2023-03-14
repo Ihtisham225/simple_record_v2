@@ -85,7 +85,7 @@
                             <div class="text-sm text-gray-900"><a :href="'seller-detail/'+r.seller.id"> {{ r.seller.name }} </a></div>
                             <!-- <div class="text-sm text-gray-500">{{ person.department }}</div> -->
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap" v-if="r.seller_name != null">
+                            <td class="px-6 py-4 whitespace-nowrap" v-else-if="r.seller_name != null">
                             <div class="text-sm text-gray-900">{{ r.seller_name }}</div>
                             <div class="text-sm text-gray-500">{{ r.seller_phone }}</div>
                             </td>

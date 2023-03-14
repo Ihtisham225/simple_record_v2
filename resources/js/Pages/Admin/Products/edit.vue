@@ -152,6 +152,7 @@
   
   import Layout from '../AdminLayout'
   import { useForm } from '@inertiajs/inertia-vue3'
+  import heic2any from "heic2any";
   export default {
     props: {
         errors: Object,
@@ -159,6 +160,7 @@
         brands: Object,
         sellers: Object,
         customers: Object,
+        store_name: Object,
     },
 
     data() {
@@ -187,10 +189,27 @@
     methods: {
 
       uploadImage(e) {
-            var selectedFiles = e.target.files;
-            for (let i = 0; i < selectedFiles.length; i++) {
-                this.form.p_images.push(selectedFiles[i]);
-            }
+        var selectedFiles = e.target.files;
+        for (let i = 0; i < selectedFiles.length; i++) {
+            // fetching the heic image
+            var blob = selectedFiles[i]; //ev.target.files[0];
+            heic2any({
+                blob: blob,
+                toType: "image/jpeg",
+                quality: 0.5,
+            })
+              .then((conversionResult) => {
+                  let file = new File([conversionResult], i+"heic_convert.jpg",{type:"image/jpeg", lastModified:new Date().getTime()});
+                  this.form.p_images.push(file);
+                  console.log(this.form.p_images);
+                  // console.log(file);
+              })
+              .catch((e) => {
+                  console.log(e);
+            });
+          // this.form.p_images.push(selectedFiles[i]);
+          // console.log(this.form.p_images);
+        }
       },
       submit() {
         this.form.post('/update-product')

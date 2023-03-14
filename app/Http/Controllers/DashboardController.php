@@ -14,6 +14,7 @@ use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Intervention\Image\Facades\Image;
 
 class DashboardController extends Controller
 {

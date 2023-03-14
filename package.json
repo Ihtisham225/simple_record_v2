@@ -33,6 +33,7 @@
         "@headlessui/vue": "^1.4.1",
         "@heroicons/vue": "^1.0.4",
         "caniuse-lite": "^1.0.30001376",
+        "heic2any": "^0.0.3",
         "moment": "^2.29.1",
         "vuejs-paginator": "^2.0.2"
     }

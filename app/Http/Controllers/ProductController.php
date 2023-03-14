@@ -9,12 +9,15 @@ use App\Models\Product;
 use App\Models\Seller;
 use App\Models\SoldProduct;
 use App\Models\Store;
+use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 use Inertia\Inertia;
+use Maestroerror\HeicToJpg;
 
 class ProductController extends Controller
 {
@@ -26,6 +29,7 @@ class ProductController extends Controller
     //list all products
     public function list()
     {
+        
         $totalbudget = Product::where('store_id', session('store_id'))->where('status', '1')->pluck('price');
         $totalquantity = Product::where('store_id', session('store_id'))->where('status', '1')->pluck('quantity');
         $overallbudget = 0;
@@ -138,7 +142,12 @@ class ProductController extends Controller
     //this function render a component to edit a specific product
     public function edit($id)
     {
-        return Inertia::render('Admin/Products/edit', ['product' => Product::find($id), 'brands' => Brand::where('store_id', session('store_id'))->get(), 'sellers' => Seller::where('store_id', session('store_id'))->get(), 'customers' => Customer::where('store_id', session('store_id'))->get()]);
+        return Inertia::render('Admin/Products/edit', [
+            'product' => Product::find($id), 
+            'brands' => Brand::where('store_id', session('store_id'))->get(), 
+            'sellers' => Seller::where('store_id', session('store_id'))->get(), 
+            'customers' => Customer::where('store_id', session('store_id'))->get(),
+        ]);
     }
 
 
@@ -151,6 +160,7 @@ class ProductController extends Controller
         //product images
         if($request->hasFile('p_images')) 
         {
+
             $names = [];
             foreach($request->file('p_images') as $image)
             {

@@ -15,6 +15,23 @@
           <div class="shadow overflow-hidden sm:rounded-md">
             <div class="px-4 py-5 bg-white sm:p-6">
               <div class="grid grid-cols-6 gap-6">
+                
+                <div class="col-span-6 sm:col-span-3">
+                  <label class="block text-sm font-medium text-gray-700">
+                    Product photos
+                  </label>
+                  <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                    <div class="space-y-1 text-center">
+                      <div class="flex text-sm text-gray-600">
+                        <label for="p-image" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                          <!-- <span>Upload a file</span> -->
+                          <input id="p_image" type="file" multiple @change="uploadImage"/>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="col-span-6 sm:col-span-3">
                   <label for="p_name" class="block text-sm font-medium text-gray-700">Product name</label>
                   <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" v-if="errors.p_name">{{ errors.p_name }}</div>
@@ -105,25 +122,6 @@
                     Brief description about your product
                   </p>
                 </div>
-
-                <div class="col-span-6 sm:col-span-3">
-                  <label class="block text-sm font-medium text-gray-700">
-                    Product photos
-                  </label>
-                  <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                    <div class="space-y-1 text-center">
-                      <div class="flex text-sm text-gray-600">
-                        <label for="p-image" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                          <!-- <span>Upload a file</span> -->
-                          <input id="p_image" type="file" multiple @change="uploadImage"/>
-                        </label>
-                      </div>
-                      <p class="text-xs text-gray-500">
-                        PNG, JPG, GIF up to 10MB
-                      </p>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
             <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
@@ -145,6 +143,7 @@
   
   import Layout from '../AdminLayout'
   import { useForm } from '@inertiajs/inertia-vue3'
+  import heic2any from "heic2any";
 
   export default {
     data() {
@@ -171,7 +170,24 @@
       uploadImage(e) {
             var selectedFiles = e.target.files;
             for (let i = 0; i < selectedFiles.length; i++) {
-                this.form.p_images.push(selectedFiles[i]);
+                // fetching the heic image
+                var blob = selectedFiles[i]; //ev.target.files[0];
+                heic2any({
+                    blob: blob,
+                    toType: "image/jpeg",
+                    quality: 0.5,
+                })
+                  .then((conversionResult) => {
+                      let file = new File([conversionResult], i+"heic_convert.jpg",{type:"image/jpeg", lastModified:new Date().getTime()});
+                      this.form.p_images.push(file);
+                      console.log(this.form.p_images);
+                      // console.log(file);
+                  })
+                  .catch((e) => {
+                      console.log(e);
+                });
+              // this.form.p_images.push(selectedFiles[i]);
+              // console.log(this.form.p_images);
             }
       },
 
