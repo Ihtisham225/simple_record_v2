@@ -27,7 +27,7 @@
       <!-- Image gallery -->
       <div class="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8 gap-y-4">
         <div v-for="image in product.images" class="aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block">
-          <img :src="'/products/'+storeName+'/'+image" :alt="image.alt" class="w-full h-full object-center object-cover" />
+          <a href="#" @click.prevent="fullScreen(`${image}`)"><img :src="'/products/'+storeName+'/'+image" :alt="image.alt"  class="w-full h-full object-center object-cover" /></a>
         </div>
       </div>
 
@@ -70,26 +70,85 @@
       </div>
     </div>
   </div>
+  <!-- This is alert box for deleting recored -->
+  <TransitionRoot as="template" :show="open">
+        <Dialog as="div" class="fixed z-10 inset-0 overflow-y-auto" @close="open = false">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
+            <DialogOverlay class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            </TransitionChild>
+
+            <!-- This element is to trick the browser into centering the modal contents. -->
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to="opacity-100 translate-y-0 sm:scale-100" leave="ease-in duration-200" leave-from="opacity-100 translate-y-0 sm:scale-100" leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                    <div class="mt-2">
+                      <img :src="'/products/'+storeName+'/'+image" :alt="image.alt"  class="w-full h-full object-center object-cover" />
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </TransitionChild>
+        </div>
+        </Dialog>
+    </TransitionRoot>
 </template>
 
 <script>
 import { ref } from 'vue'
 import { StarIcon } from '@heroicons/vue/solid'
+import { Inertia } from '@inertiajs/inertia'
 import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue'
+
+//import components for delete confirmation overlay
+import { Dialog, DialogOverlay, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import { ExclamationIcon } from '@heroicons/vue/outline'
+
 
   
 export default {
-  components: {
-    RadioGroup,
-    RadioGroupLabel,
-    RadioGroupOption,
-    StarIcon,
-  },
 
   props: {
     product: Object,
     brand: Object,
     storeName: Object,
+  },
+
+  data() {
+    //open the delete confirmation overlay is set to false initially
+    const open = ref(false)
+
+    return {
+      //set the overlay to open i.e false
+      open,
+    }
+  },
+  
+  components: {
+    RadioGroup,
+    RadioGroupLabel,
+    RadioGroupOption,
+    StarIcon,
+    Inertia,
+
+    //call delete confirmation components
+    Dialog,
+    DialogOverlay,
+    DialogTitle,
+    TransitionChild,
+    TransitionRoot,
+    ExclamationIcon,
+  },
+
+  methods: {
+    fullScreen(image){
+      this.image = image;
+      this.open = true;
+    },
   },
 
   setup() {
