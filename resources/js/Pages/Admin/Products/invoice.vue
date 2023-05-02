@@ -57,14 +57,14 @@
                     <div>
                         <h3 class="text-xl">Terms And Condition :</h3>
                         <ul class="text-xs list-disc list-inside">
-                            <li>All accounts are to be paid within 7 days from receipt of invoice.</li>
-                            <li>To be paid by cheque or credit card or direct payment online.</li>
-                            <li>If account is not paid within 7 days the credits details supplied.</li>
+                            <li>Check product in 24 hours, otherwise warranty cannot be claimed.</li>
+                            <li>Make sure of the product during purchase else in return 25% will be deducted.</li>
+                            <li>No warranty if the product is dead or broken.</li>
                         </ul>
                     </div>
                     <div class="p-4">
                         <h3>Signature</h3>
-                        <div class="text-4xl italic text-indigo-500">AAA</div>
+                        <div class="text-3xl italic text-indigo-500" style="font-family: 'Brush Script MT', cursive;" contentEditable="true">Type Here</div>
                     </div>
                 </div>
                 <div class="w-full h-0.5 bg-indigo-500"></div>
